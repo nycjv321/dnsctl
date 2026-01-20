@@ -11,6 +11,17 @@ dnsctl uses an automated CI/CD pipeline powered by:
 
 When commits following the conventional commit format are pushed to `main`, release-please automatically creates or updates a release PR. Merging that PR triggers a new release with pre-built binaries.
 
+## Repository Setup
+
+Before release-please can create pull requests, you must enable the required GitHub Actions permission:
+
+1. Go to your repository's **Settings** > **Actions** > **General**
+2. Scroll to **Workflow permissions**
+3. Enable **"Allow GitHub Actions to create and approve pull requests"**
+4. Click **Save**
+
+Without this setting, release-please will fail with: "GitHub Actions is not permitted to create or approve pull requests".
+
 ## Conventional Commits
 
 All commits should follow the [Conventional Commits](https://www.conventionalcommits.org/) specification.
@@ -198,5 +209,17 @@ After merging a release PR:
 
 **Solution**:
 - CI runs on `ubuntu-latest` - check for macOS-specific code paths
-- Verify Go version matches (1.24)
+- Verify Go version matches (1.24.x)
 - Check if tests depend on network or file system state
+
+### Release PR Permission Error
+
+**Cause**: "GitHub Actions is not permitted to create or approve pull requests"
+
+**Solution**: Enable PR creation in repository settings. See [Repository Setup](#repository-setup) section above.
+
+### CI Passes but Release Doesn't Run
+
+**Cause**: Release workflow only runs after CI workflow completes successfully.
+
+**Solution**: Check the Actions tab to verify CI workflow completed with success status. The release workflow triggers on `workflow_run` completion of the CI workflow.
