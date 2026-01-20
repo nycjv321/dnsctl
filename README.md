@@ -1,5 +1,9 @@
 # dnsctl
 
+[![CI](https://github.com/nycjv321/dnsctl/actions/workflows/ci.yml/badge.svg)](https://github.com/nycjv321/dnsctl/actions/workflows/ci.yml)
+[![GitHub Release](https://img.shields.io/github/v/release/nycjv321/dnsctl)](https://github.com/nycjv321/dnsctl/releases)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/nycjv321/dnsctl)](go.mod)
+[![License](https://img.shields.io/github/license/nycjv321/dnsctl)](LICENSE)
 [![Built with Claude](https://img.shields.io/badge/Built%20with-Claude-blueviolet)](https://claude.ai)
 
 A Unix CLI tool with a TUI for switching between DNS server profiles.
