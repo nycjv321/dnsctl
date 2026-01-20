@@ -2,7 +2,7 @@
 
 [![Built with Claude](https://img.shields.io/badge/Built%20with-Claude-blueviolet)](https://claude.ai)
 
-A macOS CLI tool with a TUI for switching between DNS server profiles.
+A Unix CLI tool with a TUI for switching between DNS server profiles.
 
 ## Features
 
