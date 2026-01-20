@@ -198,6 +198,34 @@ local-network-management/
 └── config.example.yaml
 ```
 
+## Contributing
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/) for commit messages, enabling automated releases and changelog generation.
+
+### Commit Format
+
+```
+<type>: <description>
+```
+
+### Common Types
+
+| Type | Description | Example |
+|------|-------------|---------|
+| `feat` | New feature | `feat: add quad9 DNS profile` |
+| `fix` | Bug fix | `fix: resolve DNS cache flush on Linux` |
+| `docs` | Documentation | `docs: update installation instructions` |
+| `refactor` | Code refactoring | `refactor: simplify profile loading` |
+| `test` | Adding tests | `test: add TUI navigation tests` |
+| `chore` | Maintenance | `chore: update dependencies` |
+
+### Breaking Changes
+
+Add `!` after the type for breaking changes:
+```bash
+feat!: change config file format
+```
+
 ## License
 
 MIT

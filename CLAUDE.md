@@ -206,6 +206,64 @@ func TestApplyProfile_SetsDNS(t *testing.T) {
 3. Tests are in the same package (`tui`, `config`) for access to unexported fields
 4. Use `t.TempDir()` for file-based config tests
 
+## Conventional Commits
+
+This project uses [Conventional Commits](https://www.conventionalcommits.org/) for commit messages. This enables automated versioning and changelog generation via release-please.
+
+### Commit Format
+
+```
+<type>[optional scope]: <description>
+
+[optional body]
+
+[optional footer(s)]
+```
+
+### Commit Types
+
+| Type | Description | Version Bump |
+|------|-------------|--------------|
+| `feat` | New feature | Minor (0.x.0) |
+| `fix` | Bug fix | Patch (0.0.x) |
+| `docs` | Documentation only | None |
+| `style` | Formatting, no code change | None |
+| `refactor` | Code change that neither fixes nor adds | None |
+| `perf` | Performance improvement | Patch (0.0.x) |
+| `test` | Adding/updating tests | None |
+| `chore` | Maintenance tasks | None |
+| `ci` | CI/CD changes | None |
+
+### Breaking Changes
+
+For breaking changes, either:
+- Add `!` after the type: `feat!: change config format`
+- Add `BREAKING CHANGE:` in the commit body
+
+Breaking changes trigger a major version bump (x.0.0).
+
+### Examples
+
+```bash
+# Feature
+git commit -m "feat: add quad9 DNS profile"
+
+# Bug fix
+git commit -m "fix: resolve DNS cache flush on Linux"
+
+# Breaking change
+git commit -m "feat!: change config file format"
+
+# With scope
+git commit -m "feat(tui): add keyboard shortcut for flush"
+
+# With body
+git commit -m "fix: handle empty DNS response
+
+The DNS client now returns an empty slice instead of nil
+when no DNS servers are configured."
+```
+
 ## Permissions Note
 
 Changing DNS requires elevated privileges. Users may need to run with `sudo` or grant terminal Full Disk Access.
