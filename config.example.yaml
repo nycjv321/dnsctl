@@ -1,0 +1,25 @@
+version: 1
+default_service: "Wi-Fi"
+
+profiles:
+  home:
+    description: "Home network with Pi-hole"
+    servers: ["192.168.1.100", "1.1.1.1"]
+  traveling:
+    description: "Use network's DNS (DHCP)"
+    dhcp: true
+  cloudflare:
+    description: "Cloudflare DNS"
+    servers: ["1.1.1.1", "1.0.0.1"]
+  google:
+    description: "Google Public DNS"
+    servers: ["8.8.8.8", "8.8.4.4"]
+  opendns:
+    description: "OpenDNS with family filtering"
+    servers: ["208.67.222.123", "208.67.220.123"]
+  quad9:
+    description: "Quad9 secure DNS"
+    servers: ["9.9.9.9", "149.112.112.112"]
+
+settings:
+  flush_cache: true
