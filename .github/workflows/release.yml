@@ -23,7 +23,8 @@ jobs:
         id: release
         uses: googleapis/release-please-action@v4
         with:
-          release-type: go
+          manifest-file: .release-please-manifest.json
+          config-file: release-please-config.json
 
   upload-assets:
     needs: release-please
