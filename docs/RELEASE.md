@@ -161,6 +161,10 @@ When release-please creates a release PR:
 3. Merge the PR (squash or merge commit both work)
 4. The release and binaries are created automatically
 
+> **Note:** Branch protection requires the `build` status check to pass before
+> the PR can be merged. This typically takes 1-2 minutes. The merge button will
+> be disabled until checks complete.
+
 ### Verifying Releases
 
 After merging a release PR:
@@ -217,6 +221,12 @@ After merging a release PR:
 **Cause**: "GitHub Actions is not permitted to create or approve pull requests"
 
 **Solution**: Enable PR creation in repository settings. See [Repository Setup](#repository-setup) section above.
+
+### Release PR Not Mergeable
+
+**Cause**: Branch protection requires CI status checks to pass before merging.
+
+**Solution**: Wait for CI to complete on the release PR (~1-2 minutes). The merge button will become enabled once the `build` check passes. Do not use `--admin` flag to bypass unless necessary.
 
 ### CI Passes but Release Doesn't Run
 
