@@ -3,6 +3,7 @@
 package config
 
 func defaultServiceName() string {
-	// On Linux, we auto-detect the first interface
-	return ""
+	// On Linux, interfaces are auto-detected at runtime.
+	// Return "auto" as a placeholder to indicate auto-detection.
+	return "auto"
 }
