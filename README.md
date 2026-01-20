@@ -154,6 +154,9 @@ Run the test suite:
 make test              # Run all tests
 go test -v ./...       # Verbose output
 go test -cover ./...   # With coverage report
+
+# View coverage in browser
+go test -coverprofile=coverage.out ./... && go tool cover -html=coverage.out
 ```
 
 The project has comprehensive test coverage:

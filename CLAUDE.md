@@ -133,6 +133,9 @@ make test              # Run all tests
 go test -v ./...       # Verbose output
 go test -cover ./...   # With coverage report
 go test -v ./internal/tui/...   # Run specific package
+
+# View coverage in browser (opens interactive HTML report)
+go test -coverprofile=coverage.out ./... && go tool cover -html=coverage.out
 ```
 
 ### Test Architecture
