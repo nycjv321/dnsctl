@@ -105,6 +105,62 @@ func TestRenderMainView_ShowsHelp(t *testing.T) {
 	}
 }
 
+// TestRenderMainView_ShowsServiceInline tests that main view shows service inline with title.
+func TestRenderMainView_ShowsServiceInline(t *testing.T) {
+	mock := dns.NewMockClient()
+	cfg := testConfig()
+	model := NewModel(cfg, mock)
+	model.currentService = "Wi-Fi"
+
+	output := model.renderMainView()
+
+	// Both title and service should be present
+	if !strings.Contains(output, "DNS Profile Switcher") {
+		t.Error("expected output to contain title")
+	}
+	if !strings.Contains(output, "Service: Wi-Fi") {
+		t.Error("expected output to contain 'Service: Wi-Fi'")
+	}
+}
+
+// TestRenderMainView_ShowsServiceIcon tests that main view shows inline icon for service.
+func TestRenderMainView_ShowsServiceIcon(t *testing.T) {
+	mock := dns.NewMockClient()
+	cfg := testConfig()
+	model := NewModel(cfg, mock)
+	model.currentService = "Wi-Fi"
+
+	output := model.renderMainView()
+
+	// Wi-Fi inline icon is (((•)))
+	icon := GetServiceIcon("Wi-Fi")
+	if icon == "" {
+		t.Fatal("expected Wi-Fi to have inline icon")
+	}
+	// Check that the output contains the Wi-Fi icon
+	if !strings.Contains(output, "(((•)))") {
+		t.Error("expected output to contain Wi-Fi inline icon (((•)))")
+	}
+}
+
+// TestRenderMainView_ShowsEthernetIcon tests inline icon for Ethernet service.
+func TestRenderMainView_ShowsEthernetIcon(t *testing.T) {
+	mock := dns.NewMockClient()
+	cfg := testConfig()
+	model := NewModel(cfg, mock)
+	model.currentService = "Ethernet"
+
+	output := model.renderMainView()
+
+	if !strings.Contains(output, "Service: Ethernet") {
+		t.Error("expected output to contain 'Service: Ethernet'")
+	}
+	// Ethernet inline icon is [==]
+	if !strings.Contains(output, "[==]") {
+		t.Error("expected output to contain Ethernet inline icon [==]")
+	}
+}
+
 // TestRenderProfilesView_ListsProfiles tests that profiles view lists all profiles.
 func TestRenderProfilesView_ListsProfiles(t *testing.T) {
 	mock := dns.NewMockClient()
@@ -458,5 +514,53 @@ func TestRenderMainHelp(t *testing.T) {
 	}
 	if !strings.Contains(output, "quit") {
 		t.Error("expected help to contain 'quit'")
+	}
+}
+
+// TestWrapText_ShortText tests that short text is not wrapped.
+func TestWrapText_ShortText(t *testing.T) {
+	result := wrapText("short text", 50)
+
+	if len(result) != 1 {
+		t.Errorf("expected 1 line, got %d", len(result))
+	}
+	if result[0] != "short text" {
+		t.Errorf("expected 'short text', got '%s'", result[0])
+	}
+}
+
+// TestWrapText_LongText tests that long text is wrapped at spaces.
+func TestWrapText_LongText(t *testing.T) {
+	result := wrapText("Servers: 1.1.1.1, 1.0.0.1, 8.8.8.8, 8.8.4.4", 30)
+
+	if len(result) < 2 {
+		t.Errorf("expected at least 2 lines, got %d", len(result))
+	}
+	// Each line should not exceed width significantly
+	for i, line := range result {
+		if len(line) > 35 { // allow some overflow for edge cases
+			t.Errorf("line %d too long: %d chars: '%s'", i, len(line), line)
+		}
+	}
+}
+
+// TestWrapText_ZeroWidth tests that zero width returns original text.
+func TestWrapText_ZeroWidth(t *testing.T) {
+	result := wrapText("some text", 0)
+
+	if len(result) != 1 {
+		t.Errorf("expected 1 line, got %d", len(result))
+	}
+	if result[0] != "some text" {
+		t.Errorf("expected 'some text', got '%s'", result[0])
+	}
+}
+
+// TestWrapText_BreaksAtComma tests that text breaks at commas.
+func TestWrapText_BreaksAtComma(t *testing.T) {
+	result := wrapText("Servers: 1.1.1.1, 8.8.8.8", 20)
+
+	if len(result) < 2 {
+		t.Errorf("expected at least 2 lines, got %d", len(result))
 	}
 }

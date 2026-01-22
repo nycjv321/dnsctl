@@ -66,4 +66,10 @@ var (
 	// Dimmed style for secondary info
 	dimStyle = lipgloss.NewStyle().
 			Foreground(lipgloss.Color("240"))
+
+	// ASCII art style
+	artStyle = lipgloss.NewStyle().
+			Foreground(primaryColor).
+			Width(12).
+			Align(lipgloss.Center)
 )
